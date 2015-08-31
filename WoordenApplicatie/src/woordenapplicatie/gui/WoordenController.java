@@ -11,10 +11,14 @@ package woordenapplicatie.gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -103,18 +107,40 @@ public class WoordenController implements Initializable {
         taOutput.setText(sortedString);
         
     }
-
+    /*
+    TreeMap gebruiken i.p.v. HashMap omdat een TreeMap gesorteerd kan worden.
+    */
     @FXML
     private void frequentieAction(ActionEvent event) {
         String[] woorden = taInput.getText().split("[\\s,]+");
         List<String> woordenList = new ArrayList<String>();
         
-        
+        for(int i = 0; i < woorden.length; i++){
+            woordenList.add(woorden[i].toLowerCase());
+        }
+        Map woordenTreeMap = new TreeMap<String, Integer>();
+        for(String woord: woordenList) {
+            int counter = 0;
+
+            if(!woordenTreeMap.containsKey(woord)) {
+                for (int i = 0; i < woorden.length; i++) {
+                    if (woord.equals(woorden[i].toLowerCase())) {
+                        counter++;
+                    }
+                }
+                woordenTreeMap.put(woord, counter);
+            }
+        }
+        // TODO: Sort on Value!
+        String frequentieString = "";
+        taOutput.setText(woordenTreeMap.toString());
     }
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        Set woordenSet = new TreeSet();
+        
+        woordenSet.addAll(woordenSet);
     }
    
 }
