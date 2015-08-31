@@ -9,7 +9,12 @@ package woordenapplicatie.gui;
 
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,17 +68,48 @@ public class WoordenController implements Initializable {
     
     @FXML
     private void aantalAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        String[] woorden = taInput.getText().split("[\\s,]+");
+        int lengte = woorden.length;
+        String lengteMessage = "Hoeveelheid woorden: " + lengte;
+        
+        // Set gebruiken om geen dubbele woorden mee te nemen.
+        Set woordenSet = new HashSet();
+        for(int i = 0; i < woorden.length; i++){
+            woordenSet.add(woorden[i].toLowerCase());
+        }
+        
+        String uniekMessage = "Unieke aantal woorden: " + woordenSet.size();
+        taOutput.setText(lengteMessage + "\n " + uniekMessage);
     }
 
     @FXML
     private void sorteerAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        String[] woorden = taInput.getText().split("[\\s,]+");
+
+        Set woordenSet = new HashSet();
+        for(int i = 0; i < woorden.length; i++){
+            woordenSet.add(woorden[i].toLowerCase());
+        }
+        List woordenList = new ArrayList<String>();
+        woordenList.addAll(woordenSet);
+        
+        woordenList.sort(Comparator.reverseOrder());
+        System.out.println(woordenList.toString());
+        String sortedString = "";
+
+        for (int i = 0; i < 7; i++){
+            sortedString += woordenList.get(i) + "\n";
+        }
+        taOutput.setText(sortedString);
+        
     }
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        String[] woorden = taInput.getText().split("[\\s,]+");
+        List<String> woordenList = new ArrayList<String>();
+        
+        
     }
 
     @FXML
