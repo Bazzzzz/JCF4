@@ -151,9 +151,10 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-        Set woordenSet = new TreeSet();
-        
-        woordenSet.addAll(woordenSet);
+
+        //find unique values
+        //map
+        //to string like opdr 3
     }
     
     
