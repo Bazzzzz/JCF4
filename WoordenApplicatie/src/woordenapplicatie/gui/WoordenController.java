@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import javafx.event.ActionEvent;
@@ -101,7 +102,7 @@ public class WoordenController implements Initializable {
         System.out.println(woordenList.toString());
         String sortedString = "";
 
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < woordenList.size(); i++){
             sortedString += woordenList.get(i) + "\n";
         }
         taOutput.setText(sortedString);
@@ -131,9 +132,21 @@ public class WoordenController implements Initializable {
                 woordenTreeMap.put(woord, counter);
             }
         }
-        // TODO: Sort on Value!
-        String frequentieString = "";
-        taOutput.setText(woordenTreeMap.toString());
+
+
+        String sortedSet = entriesSortedByValues(woordenTreeMap).toString();
+        System.out.println(sortedSet);
+        sortedSet = sortedSet.replaceAll("=", ":\t\t");
+        System.out.println(sortedSet);
+        String[] sortedArray = sortedSet.split(",");
+         
+        String sortedString = "";
+        for (int i = 0; i < sortedArray.length; i++){
+            sortedString += sortedArray[i] + "\n";
+        }
+        String cleanedString = sortedString.replaceAll("]","");
+        String cleanedString2 = cleanedString.replace('[',' ');
+        taOutput.setText(cleanedString2);
     }
 
     @FXML
@@ -142,5 +155,19 @@ public class WoordenController implements Initializable {
         
         woordenSet.addAll(woordenSet);
     }
-   
+    
+    
+   static <K,V extends Comparable<? super V>>
+    SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map) {
+    SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
+        new Comparator<Map.Entry<K,V>>() {
+            @Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
+                int res = e1.getValue().compareTo(e2.getValue());
+                return res != 0 ? res : 1;
+            }
+        }
+    );
+    sortedEntries.addAll(map.entrySet());
+    return sortedEntries;
+}
 }
