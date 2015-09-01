@@ -136,7 +136,7 @@ public class WoordenController implements Initializable {
 
         String sortedSet = entriesSortedByValues(woordenTreeMap).toString();
         System.out.println(sortedSet);
-        sortedSet = sortedSet.replaceAll("=", ":\t\t");
+        sortedSet = sortedSet.replace('=', ':');
         System.out.println(sortedSet);
         String[] sortedArray = sortedSet.split(",");
          
@@ -144,7 +144,7 @@ public class WoordenController implements Initializable {
         for (int i = 0; i < sortedArray.length; i++){
             sortedString += sortedArray[i] + "\n";
         }
-        String cleanedString = sortedString.replaceAll("]","");
+        String cleanedString = sortedString.replace(']',' ');
         String cleanedString2 = cleanedString.replace('[',' ');
         taOutput.setText(cleanedString2);
     }
