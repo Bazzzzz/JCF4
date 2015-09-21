@@ -70,14 +70,14 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void aantalAction(ActionEvent event) {
-        String[] woorden = taInput.getText().split("[\\s,]+");
+        String[] woorden = taInput.getText().split("[\\s,]+"); //N
         int lengte = woorden.length;
         String lengteMessage = "Hoeveelheid woorden: " + lengte;
 
         // Set gebruiken om geen dubbele woorden mee te nemen.
-        Set woordenSet = new HashSet();
-        for (int i = 0; i < woorden.length; i++) {
-            woordenSet.add(woorden[i].toLowerCase());
+        Set woordenSet = new HashSet(); 
+        for (int i = 0; i < woorden.length; i++) { //N
+            woordenSet.add(woorden[i].toLowerCase()); //1
         }
 
         String uniekMessage = "Unieke aantal woorden: " + woordenSet.size();
@@ -86,21 +86,21 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void sorteerAction(ActionEvent event) {
-        String[] woorden = taInput.getText().split("[\\s,]+");
+        String[] woorden = taInput.getText().split("[\\s,]+"); //N
 
         Set woordenSet = new HashSet();
-        for (int i = 0; i < woorden.length; i++) {
-            woordenSet.add(woorden[i].toLowerCase());
+        for (int i = 0; i < woorden.length; i++) { //N
+            woordenSet.add(woorden[i].toLowerCase()); //1
         }
         List woordenList = new ArrayList<String>();
-        woordenList.addAll(woordenSet);
+        woordenList.addAll(woordenSet); //1
 
-        woordenList.sort(Comparator.reverseOrder());
+        woordenList.sort(Comparator.reverseOrder()); // N*Log(N)
         System.out.println(woordenList.toString());
         String sortedString = "";
 
-        for (int i = 0; i < woordenList.size(); i++) {
-            sortedString += woordenList.get(i) + "\n";
+        for (int i = 0; i < woordenList.size(); i++) { //N
+            sortedString += woordenList.get(i) + "\n"; //1
         }
         taOutput.setText(sortedString);
 
@@ -111,33 +111,33 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-        String[] woorden = taInput.getText().split("[\\s,]+");
+        String[] woorden = taInput.getText().split("[\\s,]+"); //N 
         List<String> woordenList = new ArrayList<String>();
 
-        for (int i = 0; i < woorden.length; i++) {
-            woordenList.add(woorden[i].toLowerCase());
+        for (int i = 0; i < woorden.length; i++) { //N
+            woordenList.add(woorden[i].toLowerCase()); //1
         }
         Map woordenTreeMap = new TreeMap<String, Integer>();
-        for (String woord : woordenList) {
+        for (String woord : woordenList) { //N
             int counter = 0;
 
-            if (!woordenTreeMap.containsKey(woord)) {
+            if (!woordenTreeMap.containsKey(woord)) { //Log N
                 for (int i = 0; i < woorden.length; i++) {
-                    if (woord.equals(woorden[i].toLowerCase())) {
+                    if (woord.equals(woorden[i].toLowerCase())) { //1
                         counter++;
                     }
                 }
-                woordenTreeMap.put(woord, counter);
+                woordenTreeMap.put(woord, counter); //1
             }
         }
-        String sortedSet = entriesSortedByValues(woordenTreeMap).toString();
+        String sortedSet = entriesSortedByValues(woordenTreeMap).toString(); //N*Log N
         System.out.println(sortedSet);
         sortedSet = sortedSet.replace('=', ':');
         System.out.println(sortedSet);
-        String[] sortedArray = sortedSet.split(",");
+        String[] sortedArray = sortedSet.split(","); //N
 
         String sortedString = "";
-        for (int i = 0; i < sortedArray.length; i++) {
+        for (int i = 0; i < sortedArray.length; i++) { //N
             sortedString += sortedArray[i] + "\n";
         }
         String cleanedString = sortedString.replace(']', ' ');
@@ -147,49 +147,52 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-        //find unique values
-        //map
-        //to string like opdr 3
-        /*
-        HashSet woordenSet = new HashSet();
-        int line = 1;
-        for (int i = 0; i < woorden.length; i++) {
-            Map tempMap = new HashMap();
-            if (!woordenSet.contains(woorden[i])) {
-                tempMap.put(woorden[i].toLowerCase(), line);
-                woordenSet.add(tempMap);
-            }
-        }
-        */
-        
+      
         
          // TreeMap with Key = the word, Value = set of lines
         Map<String, HashSet<Integer>> concordMap = new HashMap<String, HashSet<Integer>>();
         int line = 1;
         String woorden = taInput.getText();
-        woorden = woorden.replace("/n", " !! ");
-        String[] wrdList = woorden.split("[\\s,]+");
-        for (int i = 0; i < wrdList.length; i++) {
-           if( wrdList[i].equals("!!")){
+        woorden = woorden.toLowerCase();        //N
+        woorden = woorden.replace("\n", " !! "); //N
+        String[] wrdList = woorden.split("[\\s,]+"); //N
+        for (int i = 0; i < wrdList.length; i++) { //N
+           if( wrdList[i].equals("!!")){ //1
                line++;
            }
            else {
-               if (concordMap.containsKey(wrdList[i])){
-                   concordMap.put(wordList[i], )
+              
+               if (concordMap.containsKey(wrdList[i])){ // 1
+                   HashSet<Integer> wrdSet = concordMap.get(wrdList[i]); //1
+                   wrdSet.add(line); //1
+                 
                }
-               else{
-                   concordMap.put(wordList[i], new HashSet(line) )
+               else{ 
+                   HashSet<Integer> wrdSet = new HashSet<Integer>();
+                   wrdSet.add(line); //1
+                   concordMap.put(wrdList[i], wrdSet); //1
                }
                
            }
           
         }
-        System.out.println(concordMap.toString());
+        String s = concordMap.toString();
+        System.out.println(s);
+        s = s.replaceAll("=", ": "); //N
+        System.out.println(s);
+        String[] sortedArray = s.split("],"); //N
+
+        String sortedString = "";
+        for (int i = 0; i < sortedArray.length; i++) { //N
+            sortedString += sortedArray[i] +"] "+ "\n";
+            
+        }
+        String cleanedString = sortedString.replace('{', ' ');
+        String cleanedString2 = cleanedString.replace('}', ' ');
+        cleanedString2 = cleanedString2.replaceAll("] ]", "]");
+        taOutput.setText(cleanedString2);
     }
-        /*TreeSet woordenAantalSet = new TreeSet<Integer>();
-           
-            woordenAantalSet.add(line);
-            concordMap.put(woorden[i].toLowerCase(), woordenAantalSet);*/
+
     static <K, V extends Comparable<? super V>>
             SortedSet<Map.Entry<K, V>> entriesSortedByValues(Map<K, V> map) {
         SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<Map.Entry<K, V>>(
