@@ -26,10 +26,9 @@ import javafx.scene.control.TreeView;
  * @author sebas
  */
 public class HuffmanCoderingController implements Initializable {
-    
+
     private static final String DEFAULT_TEXT = "Alle bananen zijn krom en qualitatief.";
-    
-    
+
     @FXML
     private Button btnCharacters;
     @FXML
@@ -38,26 +37,27 @@ public class HuffmanCoderingController implements Initializable {
     private TextArea txtInput;
     @FXML
     private TreeView tvHuffmanTree;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         txtInput.setText(DEFAULT_TEXT);
     }
-    
-    
+
     @FXML
     private void characterAction(ActionEvent events) {
         getCharacters(txtInput.getText());
     }
-    
+
     @FXML
     private void sortAction(ActionEvent events) {
         sortCharacters(getCharacters(txtInput.getText()));
     }
+
     /**
-     * Get all characters from a text.
+     * Gets the treemap of characters
      *
      * @param text
+     * @return TreeMap including characters and their frequence
      */
     private TreeMap getCharacters(String text) {
 
