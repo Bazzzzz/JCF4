@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -89,11 +90,17 @@ public class HuffmanCoderingController implements Initializable {
 
     /**
      * Sorts character map on value (frequency)
+     * @param characterMap
+     * @return SortedSet
      */
-    private void sortCharacters(TreeMap characterMap) {
+    private SortedSet sortCharacters(TreeMap characterMap) {
         System.out.println(entriesSortedByValues(characterMap).toString());
+        return entriesSortedByValues(characterMap);
     }
-
+    
+    
+    
+    
     static <K, V extends Comparable<? super V>>
             SortedSet<Map.Entry<K, V>> entriesSortedByValues(Map<K, V> map) {
         SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<Map.Entry<K, V>>(
