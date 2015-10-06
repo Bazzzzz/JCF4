@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="huffmancodering.HuffmanCoderingController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="huffmancodering.HuffmanCoderingController">
    <children>
       <TextArea id="txtInput" fx:id="txtInput" layoutX="22.0" layoutY="23.0" prefHeight="155.0" prefWidth="424.0" />
       <Button id="btnCharacters" fx:id="btnCharacters" layoutX="458.0" layoutY="23.0" mnemonicParsing="false" onAction="#characterAction" text="Stap 1: Characters" />
       <Button id="btnSort" fx:id="btnSort" layoutX="458.0" layoutY="66.0" mnemonicParsing="false" onAction="#sortAction" text="Stap 2: Sort" />
       <TreeView id="tvHuffmanTree" fx:id="tvHuffmanTree" layoutX="22.0" layoutY="186.0" prefHeight="200.0" prefWidth="257.0" />
+      <Button fx:id="btnBuild" layoutX="458.0" layoutY="110.0" mnemonicParsing="false" onAction="#treeAction" text="Stap 3: Build Tree" />
    </children>
 </AnchorPane>

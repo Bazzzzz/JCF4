@@ -8,8 +8,10 @@ package huffmancodering;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedSet;
@@ -28,7 +30,7 @@ import javafx.scene.control.TreeView;
  */
 public class HuffmanCoderingController implements Initializable {
 
-    private static final String DEFAULT_TEXT = "Alle bananen zijn krom en qualitatief.";
+    private static final String DEFAULT_TEXT = "bananen";
 
     @FXML
     private Button btnCharacters;
@@ -38,6 +40,9 @@ public class HuffmanCoderingController implements Initializable {
     private TextArea txtInput;
     @FXML
     private TreeView tvHuffmanTree;
+    @FXML
+    private Button btnBuild;
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,9 +56,13 @@ public class HuffmanCoderingController implements Initializable {
 
     @FXML
     private void sortAction(ActionEvent events) {
-        sortCharacters(getCharacters(txtInput.getText()));
+        sortCharactersSet(getCharacters(txtInput.getText()));
     }
 
+    @FXML
+    private void treeAction(ActionEvent events) {
+        buildTree(sortCharactersQueue(sortCharactersSet(getCharacters(txtInput.getText()))));
+    }
     /**
      * Gets the treemap of characters
      *
@@ -84,7 +93,7 @@ public class HuffmanCoderingController implements Initializable {
                 characterTreeMap.put(character, counter);
             }
         }
-        System.out.println(characterTreeMap.toString());
+        //System.out.println(characterTreeMap.toString());
         return characterTreeMap;
     }
 
@@ -93,13 +102,71 @@ public class HuffmanCoderingController implements Initializable {
      * @param characterMap
      * @return SortedSet
      */
-    private SortedSet sortCharacters(TreeMap characterMap) {
-        System.out.println(entriesSortedByValues(characterMap).toString());
+    private SortedSet sortCharactersSet(TreeMap characterMap) {
+        //System.out.println(entriesSortedByValues(characterMap).toString());
         return entriesSortedByValues(characterMap);
     }
     
-    
-    
+    private PriorityQueue sortCharactersQueue(SortedSet sortedCharacters) {
+        return new PriorityQueue(sortedCharacters);
+    }
+    /*
+    private String[] treeString(SortedSet set) {
+        List list = new ArrayList(set);
+        String[] strings = list.toArray(new String[list.size()]);
+        System.out.println(strings);
+        return set.toString().split(",");
+    }
+    */
+    private void buildTree(PriorityQueue queue) {
+        System.out.println("Tree Build");
+        System.out.println("QUEUE: " + queue.toString());
+        Iterator queueIt = queue.iterator();
+        ArrayList<HuffmanTreeNode> nodeList = new ArrayList<HuffmanTreeNode>();
+        // Find all nodes that have to be used.
+        while (queueIt.hasNext()) {
+            String s = queue.poll().toString();
+            System.out.println(s);
+            char c = s.charAt(0);
+            int i = Character.getNumericValue(s.charAt(2));
+            System.out.println("Character: " + c + " | Amount: " + i);
+            HuffmanTreeNode node = new HuffmanTreeNode(c,i);
+            
+            nodeList.add(node);
+        }
+        System.out.println(nodeList.toString());
+        // Root node for up to down.
+        //HuffmanTreeNode rootNode = new HuffmanTreeNode('\0', getTotalFreq(nodeList));
+        for (int i = 0; i < nodeList.size(); i++) {
+            // Node without character value
+            HuffmanTreeNode combinedNode = new HuffmanTreeNode('\0', nodeList.get(i));
+        }
+    }
+    private int getTotalFreq(ArrayList<HuffmanTreeNode> nodes) {
+        int number = 0;
+        for (HuffmanTreeNode n : nodes) {
+            number += n.getFreq();
+        }
+        
+        return number;
+    }
+    /*
+   private void buildTree(SortedSet set) {
+        PriorityQueue treeQueue = new PriorityQueue<HuffmanTreeNode>();
+        //String [] tempa = (String[]) library.keySet().toArray(new String[library.size()]);
+        char[] tempKeys = (char[]) set.toArray();
+        String[] tempValues = (String[])map.values().toArray();
+        set.
+        for (int i = 0; i < tempKeys.length; i++) {
+            HuffmanTreeNode node = new HuffmanTreeNode((char)tempKeys[i], (int)tempValues[i]);
+            
+            
+            treeQueue.offer();
+            
+            
+        }
+    }
+    */
     
     static <K, V extends Comparable<? super V>>
             SortedSet<Map.Entry<K, V>> entriesSortedByValues(Map<K, V> map) {
