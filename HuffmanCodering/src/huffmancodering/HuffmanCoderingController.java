@@ -57,6 +57,7 @@ public class HuffmanCoderingController implements Initializable {
     @FXML
     private void sortAction(ActionEvent events) {
         sortCharactersSet(getCharacters(txtInput.getText()));
+        
     }
 
     @FXML
@@ -93,7 +94,7 @@ public class HuffmanCoderingController implements Initializable {
                 characterTreeMap.put(character, counter);
             }
         }
-        //System.out.println(characterTreeMap.toString());
+        System.out.println(characterTreeMap.toString());
         return characterTreeMap;
     }
 
@@ -103,7 +104,7 @@ public class HuffmanCoderingController implements Initializable {
      * @return SortedSet
      */
     private SortedSet sortCharactersSet(TreeMap characterMap) {
-        //System.out.println(entriesSortedByValues(characterMap).toString());
+        System.out.println(entriesSortedByValues(characterMap).toString());
         return entriesSortedByValues(characterMap);
     }
     
@@ -139,9 +140,35 @@ public class HuffmanCoderingController implements Initializable {
         //HuffmanTreeNode rootNode = new HuffmanTreeNode('\0', getTotalFreq(nodeList));
         for (int i = 0; i < nodeList.size(); i++) {
             // Node without character value
-            HuffmanTreeNode combinedNode = new HuffmanTreeNode('\0', nodeList.get(i));
+            HuffmanTreeNode combinedNode = new HuffmanTreeNode('\0', nodeList.get(i).getFreq());
+            
+        }
+        if(queue.size() == 1) {
+            HuffmanTreeNode node = (HuffmanTreeNode) queueIt.next();
+            if(node.getFreq() == 0) {
+                queue.add(new HuffmanTreeNode('\0', 0));
+            }
+            else {
+                queue.add(new HuffmanTreeNode('\1', 0));
+            }
+        }
+        while (queue.size() > 1) {
+            HuffmanTreeNode left = (HuffmanTreeNode)queue.poll();
+            HuffmanTreeNode right = (HuffmanTreeNode)queue.poll();
+            HuffmanTreeNode parent = new HuffmanTreeNode('\0', left.getFreq() + right.getFreq());
+            parent.addNodeLeft(left);
+            parent.addNodeRight(right);
+            queue.add(parent);
         }
     }
+    private void compress() {
+        String text = txtInput.getText();
+        getCharacters(text);
+        buildTree(sortCharactersQueue(sortCharactersSet(getCharacters(txtInput.getText()))));
+        
+        
+    }
+    
     private int getTotalFreq(ArrayList<HuffmanTreeNode> nodes) {
         int number = 0;
         for (HuffmanTreeNode n : nodes) {
