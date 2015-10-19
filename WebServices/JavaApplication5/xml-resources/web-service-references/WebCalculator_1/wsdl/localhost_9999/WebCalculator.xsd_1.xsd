@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.9-b130926.1035 svn-revision#5f6196f2b90e9460065a4c2f4e30e065b245e51e. --><xs:schema xmlns:tns="http://webService/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webService/">
+
+<xs:element name="addGroenten" type="tns:addGroenten"></xs:element>
+
+<xs:element name="addGroentenResponse" type="tns:addGroentenResponse"></xs:element>
+
+<xs:element name="combineWebPizza" type="tns:combineWebPizza"></xs:element>
+
+<xs:element name="combineWebPizzaResponse" type="tns:combineWebPizzaResponse"></xs:element>
+
+<xs:element name="getDeeg" type="tns:getDeeg"></xs:element>
+
+<xs:element name="getDeegResponse" type="tns:getDeegResponse"></xs:element>
+
+<xs:element name="getGroenten" type="tns:getGroenten"></xs:element>
+
+<xs:element name="getGroentenResponse" type="tns:getGroentenResponse"></xs:element>
+
+<xs:element name="getKaas" type="tns:getKaas"></xs:element>
+
+<xs:element name="getKaasResponse" type="tns:getKaasResponse"></xs:element>
+
+<xs:element name="getKookTijd" type="tns:getKookTijd"></xs:element>
+
+<xs:element name="getKookTijdResponse" type="tns:getKookTijdResponse"></xs:element>
+
+<xs:element name="getSaus" type="tns:getSaus"></xs:element>
+
+<xs:element name="getSausResponse" type="tns:getSausResponse"></xs:element>
+
+<xs:complexType name="getGroenten">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getGroentenResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getKookTijd">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getKookTijdResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDeeg">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDeegResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getSaus">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getSausResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="combineWebPizza">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg2" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg3" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="combineWebPizzaResponse">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addGroenten">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addGroentenResponse">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getKaas">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getKaasResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
